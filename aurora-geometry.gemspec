@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "aurora-geometry"
-  s.version     = '6.1'
+  s.version     = '1.0.0'
   s.authors     = ["Meseker Yohannes"]
   s.email       = ["meseker.yohannes@gmail.com"]
   s.homepage    = "http://github.com/meseker/geometry"
