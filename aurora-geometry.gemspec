@@ -2,15 +2,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "geometry"
+  s.name        = "aurora-geometry"
   s.version     = '6.1'
-  s.authors     = ["Brandon Fosdick"]
-  s.email       = ["bfoz@bfoz.net"]
-  s.homepage    = "http://github.com/bfoz/geometry"
+  s.authors     = ["Meseker Yohannes"]
+  s.email       = ["meseker.yohannes@gmail.com"]
+  s.homepage    = "http://github.com/meseker/geometry"
   s.summary     = %q{Geometric primitives and algoritms}
   s.description = %q{Geometric primitives and algorithms for Ruby}
 
-  s.rubyforge_project = "geometry"
+  s.rubyforge_project = "aurora-geometry"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
