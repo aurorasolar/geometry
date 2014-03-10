@@ -3,8 +3,8 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "aurora-geometry"
-  s.version     = '1.0.0'
-  s.authors     = ["Meseker Yohannes"]
+  s.version     = '0.0.1'
+  s.authors     = ["Brandon Fosdick", "Meseker Yohannes"]
   s.email       = ["meseker.yohannes@gmail.com"]
   s.homepage    = "http://github.com/meseker/geometry"
   s.summary     = %q{Geometric primitives and algoritms}
