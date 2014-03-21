@@ -14,6 +14,11 @@ also like a {Path} in that it isn't necessarily closed.
 
     class Polyline
 	attr_reader :edges, :vertices
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
 
 	# Construct a new Polyline from Points and/or Edges
 	# @note The constructor will try to convert all of its arguments into {Point}s and

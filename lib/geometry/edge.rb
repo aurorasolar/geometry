@@ -14,6 +14,11 @@ An edge. It's a line segment between 2 points. Generally part of a {Polygon}.
 
     class Edge
 	attr_reader :first, :last
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
 
 	# Construct a new {Edge} object from any two things that can be converted
 	# to a {Point}.

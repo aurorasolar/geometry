@@ -3,6 +3,11 @@ require_relative 'point'
 module Geometry
 
 	class Text
+		attr_writer :options
+		def options
+			@options = {} if !@options
+			@options
+		end
 		
 		# @return [Point]   The point located in the top left corner of {Text}'s
 		# bounding box

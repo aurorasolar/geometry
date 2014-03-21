@@ -35,7 +35,11 @@ The {Rectangle} class cluster represents your typical arrangement of 4 corners a
 	attr_reader :size
 	# @return [Number]  Width of the {Rectangle}
 	attr_reader :width
-
+	attr_writer :options
+	def options
+		@options = {} if !@options
+	end
+	
 	# @overload new(width, height)
 	#   Creates a {Rectangle} of the given width and height, centered on the origin
 	#   @param [Number]   height  Height

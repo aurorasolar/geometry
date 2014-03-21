@@ -16,7 +16,11 @@ but there's currently nothing that enforces simplicity.
 =end
 
     class Polygon < Polyline
-
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
 	# Construct a new Polygon from Points and/or Edges
 	#  The constructor will try to convert all of its arguments into Points and
 	#   Edges. Then successive Points will be collpased into Edges. Successive

@@ -13,7 +13,11 @@ The {Square} class cluster is like the {Rectangle} class cluster, but not longer
 =end
     class Square
 	attr_reader :origin
-
+	attr_writer :options
+	def options
+		@options = {} if !@options
+	end
+	
 	# Creates a {Square} given two {Point}s
 	# @option options [Point] :from	A corner (ie. bottom-left)
 	# @option options [Point] :to	The other corner (ie. top-right)
