@@ -13,7 +13,7 @@ Circles come in all shapes and sizes, but they're usually round.
     circle = Geometry::Circle.new diameter:6
 =end
 
-    class Circle
+class Circle
 	include ClusterFactory
 
 	# @return [Point]   The {Circle}'s center point
@@ -21,7 +21,11 @@ Circles come in all shapes and sizes, but they're usually round.
 
 	# @return [Number]  The {Circle}'s radius
 	attr_reader :radius
-
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
 	# @overload new(center, radius)
 	#   Construct a {Circle} using a centerpoint and radius
 	#   @param [Point]	center  The center point of the {Circle}

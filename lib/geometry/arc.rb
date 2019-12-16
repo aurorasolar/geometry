@@ -13,12 +13,17 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
     arc = Geometry::Arc.new center:[1,1], radius:2, start:0, end:90
 =end
 
-    class Arc
+class Arc
 	include ClusterFactory
 
 	attr_reader :center
 	attr_reader :radius
 	attr_reader :start_angle, :end_angle
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
 
 	# @overload new(center, start, end)
 	#  Create a new {Arc} given center, start and end {Point}s
@@ -34,13 +39,13 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
 	# @option options [Numeric] :end	Ending angle
 	# @return [ThreePointArc]
 	def self.new(options={})
-	    center = options.delete(:center) || PointZero.new
+    center = options.delete(:center) || PointZero.new
 
-	    if options.has_key?(:radius)
-		original_new(center, options[:radius], options[:start], options[:end])
-	    else
-		ThreePointArc.new(center, options[:start], options[:end])
-	    end
+		if options.has_key?(:radius)
+			original_new(center, options[:radius], options[:start], options[:end])
+		else
+			ThreePointArc.new(center, options[:start], options[:end])
+		end
 	end
 
 	# Construct a new {Arc}
@@ -50,24 +55,24 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
 	# @param [Numeric]  start_angle	Starting angle
 	# @param [Numeric]  end_angle	Ending angle
 	def initialize(center, radius, start_angle, end_angle)
-	    @center = Point[center]
-	    @radius = radius
-	    @start_angle = start_angle
-	    @end_angle = end_angle
+		@center = Point[center]
+		@radius = radius
+		@start_angle = start_angle
+		@end_angle = end_angle
 	end
 
 	# @return [Point]   The starting point of the {Arc}
 	def first
-	    @center + @radius * Vector[Math.cos(@start_angle), Math.sin(@start_angle)]
+		@center + @radius * Vector[Math.cos(@start_angle), Math.sin(@start_angle)]
 	end
 
 	# @return [Point]   The end point of the {Arc}
 	def last
-	    @center + @radius * Vector[Math.cos(@end_angle), Math.sin(@end_angle)]
+		@center + @radius * Vector[Math.cos(@end_angle), Math.sin(@end_angle)]
 	end
-    end
+end
 
-    class ThreePointArc < Arc
+class ThreePointArc < Arc
 	attr_reader :center
 	attr_reader :start, :end
 
@@ -79,8 +84,8 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
 	# @param [Point]    start_point	    The {Arc} starts at the start {Point}
 	# @param [Point]    end_point	    The {Point} where it all ends
 	def initialize(center_point, start_point, end_point)
-	    @center, @start, @end = [center_point, start_point, end_point].map {|p| Point[p]}
-	    raise ArgumentError unless [@center, @start, @end].all? {|p| p.is_a?(Point)}
+    @center, @start, @end = [center_point, start_point, end_point].map {|p| Point[p]}
+    raise ArgumentError unless [@center, @start, @end].all? {|p| p.is_a?(Point)}
 	end
 
 	# The starting point of the {Arc}
@@ -90,5 +95,5 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
 	# The end point of the {Arc}
 	# @return [Point]
 	alias :last :end
-    end
+end
 end

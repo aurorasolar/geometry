@@ -16,6 +16,7 @@ The {Square} class cluster is like the {Rectangle} class cluster, but not longer
 	attr_writer :options
 	def options
 		@options = {} if !@options
+		@options
 	end
 	
 	# Creates a {Square} given two {Point}s
