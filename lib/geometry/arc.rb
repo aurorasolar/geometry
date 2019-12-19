@@ -21,8 +21,7 @@ An {Arc} with its center at [1,1] and a radius of 2 that starts at the X-axis an
     attr_reader :start_angle, :end_angle
     attr_writer :options
     def options
-      @options = {} if !@options
-      @options
+      @options ||= {}
     end
 
     # @overload new(center, start, end)
