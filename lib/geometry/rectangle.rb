@@ -40,7 +40,7 @@ The {Rectangle} class cluster represents your typical arrangement of 4 corners a
 		@options = {} if !@options
 		@options
 	end
-	
+
 	# @overload new(width, height)
 	#   Creates a {Rectangle} of the given width and height, centered on the origin
 	#   @param [Number]   height  Height
@@ -125,7 +125,7 @@ The {Rectangle} class cluster represents your typical arrangement of 4 corners a
 	# @return [Point]   The {Rectangle}'s center
 	def center
 	    min, max = @points.minmax {|a,b| a.y <=> b.y}
-	    Point[(max.x+min.x)/2, (max.y+min.y)/2]
+	    Point[(max.x+min.x).to_r/2, (max.y+min.y).to_r/2]
 	end
 
 	# @return [Array<Edge>]   The {Rectangle}'s four edges (counterclockwise)
