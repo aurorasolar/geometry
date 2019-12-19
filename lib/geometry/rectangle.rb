@@ -38,6 +38,7 @@ The {Rectangle} class cluster represents your typical arrangement of 4 corners a
 	attr_writer :options
 	def options
 		@options = {} if !@options
+		@options
 	end
 	
 	# @overload new(width, height)

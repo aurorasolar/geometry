@@ -2,6 +2,13 @@ require 'matrix'
 
 # Monkeypatch Vector to overcome some deficiencies
 class Vector
+	
+	attr_writer :options
+	def options
+		@options = {} if !@options
+		@options
+	end
+	
     X = Vector[1,0,0]
     Y = Vector[0,1,0]
     Z = Vector[0,0,1]
