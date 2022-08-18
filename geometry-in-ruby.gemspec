@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "geometry-in-ruby"
-  s.version     = '0.0.6'
+  s.version     = '1.0.0'
   s.authors     = ["Brandon Fosdick", "Meseker Yohannes"]
   s.email       = ["myohannes@aurorasolar.com"]
   s.homepage    = "http://github.com/aurorasolar/geometry"
