@@ -14,7 +14,7 @@ describe Geometry::Transformation::Composition do
     end
 
     it "must reject anything that isn't a Transformation" do
-      -> { Composition.new :foo }.must_raise TypeError
+      _(-> { Composition.new :foo }).must_raise TypeError
     end
   end
 
