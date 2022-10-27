@@ -82,7 +82,7 @@ describe Geometry::Point do
   it "must support array access" do
     _(Point[1,2][0]).must_equal 1
     _(Point[1,2][1]).must_equal 2
-    _(Point[1,2][2]).must_equal nil
+    assert_nil Point[1,2][2]
   end
 
   it "must clone" do
