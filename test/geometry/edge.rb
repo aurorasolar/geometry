@@ -122,11 +122,11 @@ describe Geometry::Edge do
     end
 
     it "must return nil for two parallel but not collinear edges" do
-      _(Edge.new([0,0],[2,0]).intersection(Edge.new([1,1],[3,1]))).must_equal nil
+      assert_nil Edge.new([0,0],[2,0]).intersection(Edge.new([1,1],[3,1]))
     end
 
     it "must return nil for two perpendicular but not interseting edges" do
-      _(Edge.new([0, 0], [2, 0]).intersection(Edge.new([3, 3], [3, 1]))).must_equal nil
+      assert_nil Edge.new([0, 0], [2, 0]).intersection(Edge.new([3, 3], [3, 1]))
     end
   end
 end
