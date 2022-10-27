@@ -71,7 +71,7 @@ describe Geometry::Edge do
       _(edge <=> Point[0,0]).must_equal 0
       _(edge <=> Point[1,0]).must_equal -1
       _(edge <=> Point[0,1]).must_equal 1
-      _(edge <=> Point[2,2]).must_equal nil
+      assert_nil edge <=> Point[2,2]
     end
 
     it "descending with a Point" do
@@ -79,7 +79,7 @@ describe Geometry::Edge do
       _(edge <=> Point[0,0]).must_equal 0
       _(edge <=> Point[1,0]).must_equal 1
       _(edge <=> Point[0,1]).must_equal -1
-      _(edge <=> Point[2,2]).must_equal nil
+      assert_nil edge <=> Point[2,2]
     end
   end
 
@@ -109,7 +109,7 @@ describe Geometry::Edge do
     end
 
     it "must return nil for two edges that do not intersect" do
-      _(Edge.new([0,0],[1,0]).intersection(Edge.new([0,1],[1,1]))).must_equal nil
+      assert_nil Edge.new([0,0],[1,0]).intersection(Edge.new([0,1],[1,1]))
     end
 
     it "must return true for two collinear and overlapping edges" do

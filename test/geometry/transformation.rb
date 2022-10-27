@@ -26,7 +26,7 @@ describe Geometry::Transformation do
 
     it "must accept a translate Point equal to zero" do
       translate = Transformation.new(:translate => [0,0])
-      _(translate.translation).must_equal nil
+      assert_nil translate.translation
     end
 
     it "must accept a translate Vector" do
@@ -40,16 +40,16 @@ describe Geometry::Transformation do
     end
 
     it "must raise an exception when given too many translation options" do
-      lambda { Transformation.new :translate => [1,2], :origin => [3,4] }.must_raise ArgumentError
+      _(lambda { Transformation.new :translate => [1,2], :origin => [3,4] }).must_raise ArgumentError
     end
 
     describe "when given a dimensions option" do
       it "must raise an exception if the other arguments are too big" do
-        lambda { Transformation.new :dimensions => 2, :origin => [1,2,3] }.must_raise ArgumentError
+        _(lambda { Transformation.new :dimensions => 2, :origin => [1,2,3] }).must_raise ArgumentError
       end
 
       it "must raise an exception if the other arguments are too small" do
-        lambda { Transformation.new :dimensions => 3, :origin => [1,2] }.must_raise ArgumentError
+        _(lambda { Transformation.new :dimensions => 3, :origin => [1,2] }).must_raise ArgumentError
       end
 
       it "must not complain when given only a dimensions option" do
