@@ -74,7 +74,7 @@ describe Geometry::Transformation do
       it "must accept a rotation angle specified by an X-axis" do
         transformation = Transformation.new x:[0,1]
         rotation = transformation.rotation
-        rotation.must_be_instance_of(RotationAngle)
+        _(rotation).must_be_instance_of(RotationAngle)
         _(rotation.angle).must_equal Math::PI/2
         _(rotation.x.x).must_be_close_to 0
         _(rotation.x.y).must_be_close_to 1
