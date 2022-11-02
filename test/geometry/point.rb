@@ -10,7 +10,7 @@ describe Geometry::Point do
     end
 
     it "must generate a Point full of zeros" do
-      _(Point.zero(3)).must_equal Point[0,0,0]
+      assert_equal Point.zero(3), Point[0,0,0]
     end
   end
 
@@ -19,9 +19,9 @@ describe Geometry::Point do
       original_point = Point[3,4]
       point = Geometry::Point[original_point]
       _(point).must_be_same_as original_point
-      _(point.size).must_equal 2
-      _(point.x).must_equal 3
-      _(point.y).must_equal 4
+      assert_equal point.size, 2
+      assert_equal point.x, 3
+      assert_equal point.y, 4
     end
 
     it "must return the PointZero when constructed from a PointZero" do
@@ -80,19 +80,19 @@ describe Geometry::Point do
   end
 
   it "must support array access" do
-    _(Point[1,2][0]).must_equal 1
-    _(Point[1,2][1]).must_equal 2
+    assert_equal Point[1,2][0], 1
+    assert_equal Point[1,2][1], 2
     assert_nil Point[1,2][2]
   end
 
   it "must clone" do
     _(Point[1,2].clone).must_be_instance_of(Point)
-    _(Point[1,2].clone).must_equal Point[1,2]
+    assert_equal Point[1,2].clone, Point[1,2]
   end
 
   it "must duplicate" do
     _(Point[1,2].dup).must_be_instance_of(Point)
-    _(Point[1,2].dup).must_equal Point[1,2]
+    assert_equal Point[1,2].dup, Point[1,2]
   end
 
   describe "arithmetic" do
@@ -100,12 +100,12 @@ describe Geometry::Point do
     let(:right) { Point[3,4] }
 
     it "must have +@" do
-      _(+left).must_equal Point[1,2]
+      assert_equal +left, Point[1,2]
       _(+left).must_be_instance_of(Point)
     end
 
     it "must have unary negation" do
-      _(-left).must_equal Point[-1,-2]
+      assert_equal -left, Point[-1,-2]
       _(-left).must_be_instance_of(Point)
     end
 
@@ -115,29 +115,29 @@ describe Geometry::Point do
       end
 
       it "must return a Point when adding an array to a Point" do
-        _(left + [5,6]).must_equal Point[6,8]
+        assert_equal left + [5,6], Point[6,8]
       end
 
       it "must add a Numeric to all elements" do
-        _(left + 2).must_equal Point[3,4]
-        _(2 + left).must_equal Point[3,4]
+        assert_equal left + 2, Point[3,4]
+        assert_equal 2 + left, Point[3,4]
       end
 
       it "must raise an exception when adding mismatched sizes" do
-        _(lambda { left + [1,2,3,4] }).must_raise Geometry::DimensionMismatch
+        assert_raises(Geometry::DimensionMismatch) { left + [1,2,3,4] }
       end
 
       it "must return a Point when adding a Vector" do
-        _(left + Vector[5,6]).must_equal Point[6,8]
-        _(Vector[5,6] + right).must_equal Vector[8,10]
+        assert_equal left + Vector[5,6], Point[6,8]
+        assert_equal Vector[5,6] + right, Vector[8,10]
       end
 
       it "must return self when adding a PointZero" do
-        _(left + Point.zero).must_equal left
+        assert_equal left + Point.zero, left
       end
 
       it "must return self when adding a NilClass" do
-        _(left + nil).must_equal left
+        assert_equal left + nil, left
       end
     end
 
@@ -147,30 +147,30 @@ describe Geometry::Point do
       end
 
       it "must return a Point when subtracting an array from a Point" do
-        _(left - [5,6]).must_equal Point[-4, -4]
+        assert_equal left - [5,6], Point[-4, -4]
       end
 
       it "must subtract a Numeric from all elements" do
-        _(left - 2).must_equal Point[-1, 0]
-        _(2 - left).must_equal Point[1,0]
+        assert_equal left - 2, Point[-1, 0]
+        assert_equal 2 - left, Point[1,0]
       end
 
       it "must raise an exception when subtracting mismatched sizes" do
-        _(lambda { left - [1,2,3,4] }).must_raise Geometry::DimensionMismatch
+        assert_raises(Geometry::DimensionMismatch) { left - [1,2,3,4] }
       end
 
       it "must return self when subtracting a PointZero" do
-        _(left - Point.zero).must_equal left
+        assert_equal left - Point.zero, left
       end
 
       it "must return self when subtracting a NilClass" do
-        _(left - nil).must_equal left
+        assert_equal left - nil, left
       end
     end
 
     describe "when multiplying" do
       it "must return a Point when multiplied by a Matrix" do
-        _(Matrix[[1,2],[3,4]]*Point[5,6]).must_equal Point[17, 39]
+        assert_equal Matrix[[1,2],[3,4]]*Point[5,6], Point[17, 39]
       end
     end
   end
@@ -179,19 +179,19 @@ describe Geometry::Point do
     subject { Point[1,2] }
 
     it "must coerce Arrays into Points" do
-      _(subject.coerce([3,4])).must_equal [Point[3,4], subject]
+      assert_equal subject.coerce([3,4]), [Point[3,4], subject]
     end
 
     it "must coerce Vectors into Points" do
-      _(subject.coerce(Vector[3,4])).must_equal [Point[3,4], subject]
+      assert_equal subject.coerce(Vector[3,4]), [Point[3,4], subject]
     end
 
     it "must coerce a Numeric into a Point" do
-      _(subject.coerce(42)).must_equal [Point[42,42], subject]
+      assert_equal subject.coerce(42), [Point[42,42], subject]
     end
 
     it "must reject anything that can't be coerced" do
-      _(-> { subject.coerce(NilClass) }).must_raise TypeError
+      assert_raises(TypeError) { subject.coerce(NilClass) }
     end
   end
 
@@ -199,35 +199,37 @@ describe Geometry::Point do
     let(:point) { Point[1,2] }
 
     it "must compare equal to an equal Array" do
+      assert point == [1,2]
+      assert point.eql?([1,2])
       _(point).must_be :==, [1,2]
       _(point).must_be :eql?, [1,2]
-      _([1,2]).must_equal point
+      assert_equal point, [1,2]
     end
 
     it "must not compare equal to an unequal Array" do
-      _(point).wont_equal [3,2]
-      _([3,2]).wont_equal point
+      refute_equal point, [3,2]
+      refute_equal [3,2], point
     end
 
     it "must compare equal to an equal Point" do
       _(point).must_be :==, Point[1,2]
       _(point).must_be :eql?, Point[1,2]
-      _(Point[1,2]).must_equal point
+      assert_equal Point[1,2], point
     end
 
     it "must not compare equal to an unequal Point" do
-      _(point).wont_equal Point[3,2]
-      _(Point[3,2]).wont_equal point
+      refute_equal point, Point[3,2]
+      refute_equal Point[3,2], point
     end
 
     it "must compare equal to an equal Vector" do
-      _(point).must_equal Vector[1,2]
-      _(Vector[1,2]).must_equal point
+      assert_equal point, Vector[1,2]
+      assert_equal Vector[1,2], point
     end
 
     it "must not compare equal to an unequal Vector" do
-      _(point).wont_equal Vector[3,2]
-      _(Vector[3,2]).wont_equal point
+      refute_equal point, Vector[3,2]
+      refute_equal Vector[3,2], point
     end
 
     it "must think that floats == ints" do
@@ -242,16 +244,16 @@ describe Geometry::Point do
 
     describe "spaceship" do
       it "must spaceship with another Point of the same length" do
-        _(Point[1,2] <=> Point[0,3]).must_equal Point[1,-1]
+        assert_equal Point[1,2] <=> Point[0,3], Point[1,-1]
       end
 
       it "must spaceship with another Point of different length" do
-        _(Point[1,2] <=> Point[0,3,4]).must_equal Point[1,-1]
-        _(Point[1,2,4] <=> Point[0,3]).must_equal Point[1,-1]
+        assert_equal Point[1,2] <=> Point[0,3,4], Point[1,-1]
+        assert_equal Point[1,2,4] <=> Point[0,3], Point[1,-1]
       end
 
       it "must spaceship with an Array" do
-        _(Point[1,2] <=> [0,3]).must_equal Point[1,-1]
+        assert_equal Point[1,2] <=> [0,3], Point[1,-1]
       end
     end
   end

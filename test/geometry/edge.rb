@@ -21,7 +21,7 @@ describe Geometry::Edge do
     edge2 = Edge.new([1,0], [0,1])
     edge3 = Edge.new([1,1], [5,5])
     assert_equal(edge1, edge2)
-    _(edge1).wont_equal edge3
+    refute_equal edge1, edge3
   end
 
   it "must return the height of the edge" do
@@ -35,50 +35,50 @@ describe Geometry::Edge do
   end
 
   it "must convert an Edge to a Vector" do
-    _(Edge.new([0,0], [1,0]).vector).must_equal Vector[1,0]
+    assert_equal Edge.new([0,0], [1,0]).vector, Vector[1,0]
   end
 
   it "must return the normalized direction of a vector" do
-    _(Edge.new([0,0], [1,0]).direction).must_equal Vector[1,0]
+    assert_equal Edge.new([0,0], [1,0]).direction, Vector[1,0]
   end
 
   it "must return true for parallel edges" do
-    _(Edge.new([0,0], [1,0]).parallel?(Edge.new([0,0], [1,0]))).must_equal 1
-    _(Edge.new([0,0], [1,0]).parallel?(Edge.new([1,0], [2,0]))).must_equal 1
-    _(Edge.new([0,0], [1,0]).parallel?(Edge.new([3,0], [4,0]))).must_equal 1
-    _(Edge.new([0,0], [1,0]).parallel?(Edge.new([3,1], [4,1]))).must_equal 1
+    assert_equal Edge.new([0,0], [1,0]).parallel?(Edge.new([0,0], [1,0])), 1
+    assert_equal Edge.new([0,0], [1,0]).parallel?(Edge.new([1,0], [2,0])), 1
+    assert_equal Edge.new([0,0], [1,0]).parallel?(Edge.new([3,0], [4,0])), 1
+    assert_equal Edge.new([0,0], [1,0]).parallel?(Edge.new([3,1], [4,1])), 1
   end
 
   it "must return false for non-parallel edges" do
-    _(Edge.new([0,0], [2,0]).parallel?(Edge.new([1,-1], [1,1]))).must_equal false
+    assert_equal Edge.new([0,0], [2,0]).parallel?(Edge.new([1,-1], [1,1])), false
   end
 
   it "must clone and reverse" do
     reversed = subject.reverse
-    _(reversed.to_a).must_equal subject.to_a.reverse
+    assert_equal reversed.to_a, subject.to_a.reverse
     _(reversed).wont_be_same_as subject
   end
 
   it "must reverse itself" do
     original = subject.to_a
     subject.reverse!
-    _(subject.to_a).must_equal original.reverse
+    assert_equal subject.to_a, original.reverse
   end
 
   describe "spaceship" do
     it "ascending with a Point" do
       edge = Edge.new [0,0], [1,1]
-      _(edge <=> Point[0,0]).must_equal 0
-      _(edge <=> Point[1,0]).must_equal -1
-      _(edge <=> Point[0,1]).must_equal 1
+      assert_equal edge <=> Point[0,0], 0
+      assert_equal edge <=> Point[1,0], -1
+      assert_equal edge <=> Point[0,1], 1
       assert_nil edge <=> Point[2,2]
     end
 
     it "descending with a Point" do
       edge = Edge.new [1,1], [0,0]
-      _(edge <=> Point[0,0]).must_equal 0
-      _(edge <=> Point[1,0]).must_equal 1
-      _(edge <=> Point[0,1]).must_equal -1
+      assert_equal edge <=> Point[0,0], 0
+      assert_equal edge <=> Point[1,0], 1
+      assert_equal edge <=> Point[0,1], -1
       assert_nil edge <=> Point[2,2]
     end
   end
@@ -86,26 +86,26 @@ describe Geometry::Edge do
   describe "when finding an intersection" do
     it "must find the intersection of two end-intersecting Edges" do
       intersection = Edge.new([0,0],[1,1]).intersection(Edge.new([0,1],[1,1]))
-      _(intersection).must_be_kind_of Geometry::Point
-      _(intersection).must_equal Geometry::Point[1,1]
+      assert_kind_of Geometry::Point, intersection
+      assert_equal intersection, Geometry::Point[1,1]
     end
 
     it "must find the intersection of two collinear end-intersecting Edges" do
       intersection = Edge.new([2,2], [0,2]).intersection(Edge.new([3,2], [2,2]))
-      _(intersection).must_be_kind_of Geometry::Point
-      _(intersection).must_equal Geometry::Point[2,2]
+      assert_kind_of Geometry::Point, intersection
+      assert_equal intersection, Geometry::Point[2,2]
 
       intersection = Edge.new([0,2], [2,2]).intersection(Edge.new([2,2], [3,2]))
-      _(intersection).must_be_kind_of Geometry::Point
-      _(intersection).must_equal Geometry::Point[2,2]
+      assert_kind_of Geometry::Point, intersection
+      assert_equal intersection, Geometry::Point[2,2]
     end
 
     it "must find the itersection of two crossed Edges" do
       edge1 = Edge.new [0.0, 0], [2.0, 2.0]
       edge2 = Edge.new [2.0, 0], [0.0, 2.0]
       intersection = edge1.intersection edge2
-      _(intersection).must_be_kind_of Geometry::Point
-      _(intersection).must_equal Geometry::Point[1,1]
+      assert_kind_of Geometry::Point, intersection
+      assert_equal intersection, Geometry::Point[1,1]
     end
 
     it "must return nil for two edges that do not intersect" do
@@ -113,12 +113,12 @@ describe Geometry::Edge do
     end
 
     it "must return true for two collinear and overlapping edges" do
-      _(Edge.new([0,0],[2,0]).intersection(Edge.new([1,0],[3,0]))).must_equal true
+      assert_equal Edge.new([0,0],[2,0]).intersection(Edge.new([1,0],[3,0])), true
     end
 
     it "must return false for collinear but non-overlapping edges" do
-      _(Edge.new([0,0],[2,0]).intersection(Edge.new([3,0],[4,0]))).must_equal false
-      _(Edge.new([0,0],[0,2]).intersection(Edge.new([0,3],[0,4]))).must_equal false
+      assert_equal Edge.new([0,0],[2,0]).intersection(Edge.new([3,0],[4,0])), false
+      assert_equal Edge.new([0,0],[0,2]).intersection(Edge.new([0,3],[0,4])), false
     end
 
     it "must return nil for two parallel but not collinear edges" do

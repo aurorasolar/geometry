@@ -8,22 +8,22 @@ describe Geometry::Line do
   describe "when initializing" do
     it "must accept two named points" do
       line = Line.new(from:Point[0,0], to:Point[10,10])
-      _(line).must_be_kind_of(Line)
+      assert_kind_of Line, line
       _(line).must_be_instance_of(Geometry::TwoPointLine)
-      _(line.first).must_equal Point[0,0]
-      _(line.last).must_equal Point[10,10]
+      assert_equal line.first, Point[0,0]
+      assert_equal line.last, Point[10,10]
     end
 
     it "must accept named start and end points" do
       line = Line.new(start:Point[0,0], end:Point[10,10])
-      _(line).must_be_kind_of(Line)
+      assert_kind_of Line, line
       _(line).must_be_instance_of(Geometry::TwoPointLine)
-      _(line.first).must_equal Point[0,0]
-      _(line.last).must_equal Point[10,10]
+      assert_equal line.first, Point[0,0]
+      assert_equal line.last, Point[10,10]
     end
 
     it "must raise an exception when no arguments are given" do
-      _(-> { Line.new }).must_raise ArgumentError
+      assert_raises(ArgumentError) { Line.new }
     end
   end
 
@@ -111,7 +111,7 @@ describe Geometry::PointSlopeLine do
   subject { Geometry::PointSlopeLine.new [1,2], 3 }
 
   it "must have a slope attribute" do
-    _(subject.slope).must_equal 3
+    assert_equal subject.slope, 3
   end
 end
 
@@ -119,7 +119,7 @@ describe Geometry::SlopeInterceptLine do
   subject { Geometry::SlopeInterceptLine.new 3, 2 }
 
   it "must have a slope attribute" do
-    _(subject.slope).must_equal 3
+    assert_equal subject.slope, 3
   end
 end
 
@@ -127,6 +127,6 @@ describe Geometry::TwoPointLine do
   subject { Geometry::TwoPointLine.new [1,2], [3,4] }
 
   it "must have a slope attribute" do
-    _(subject.slope).must_equal 1
+    assert_equal subject.slope, 1
   end
 end

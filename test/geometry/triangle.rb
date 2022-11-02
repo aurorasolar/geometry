@@ -9,11 +9,11 @@ describe Geometry::Triangle do
 
     it "must create a scalene Triangle" do
       _(triangle).must_be_instance_of Geometry::ScaleneTriangle
-      _(triangle).must_be_kind_of Triangle
+      assert_kind_of Triangle, triangle
     end
 
     it "must have a points accessor" do
-      _(triangle.points).must_equal [Point[0,0], Point[0,1], Point[1,0]]
+      assert_equal triangle.points, [Point[0,0], Point[0,1], Point[1,0]]
     end
   end
 
@@ -22,11 +22,11 @@ describe Geometry::Triangle do
 
     it "must create a right Triangle" do
       _(triangle).must_be_instance_of Geometry::RightTriangle
-      _(triangle).must_be_kind_of(Triangle)
+      assert_kind_of Triangle, triangle
     end
 
     it "must have a points accessor" do
-      _(triangle.points).must_equal [Point[0,0], Point[0,1], Point[1,0]]
+      assert_equal triangle.points, [Point[0,0], Point[0,1], Point[1,0]]
     end
   end
 end

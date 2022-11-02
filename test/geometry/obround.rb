@@ -7,19 +7,19 @@ describe Geometry::Obround do
   describe "when constructed" do
     it "must accept two Points" do
       obround = Geometry::Obround.new [1,2], [3,4]
-      _(obround).must_be_kind_of Geometry::Obround
+      assert_kind_of Geometry::Obround, obround
     end
 
     it "must accept a width and height" do
       obround = Geometry::Obround.new 2, 3
-      _(obround).must_be_kind_of Geometry::Obround
-      _(obround.height).must_equal 3
-      _(obround.width).must_equal 2
+      assert_kind_of Geometry::Obround, obround
+      assert_equal obround.height, 3
+      assert_equal obround.width, 2
     end
 
     it "must compare equal" do
       obround = Geometry::Obround.new [1,2], [3,4]
-      _(obround).must_equal Obround.new([1,2], [3,4])
+      assert_equal obround, Obround.new([1,2], [3,4])
     end
   end
 end

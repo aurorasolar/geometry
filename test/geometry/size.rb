@@ -73,7 +73,7 @@ describe Geometry::Size do
     size2 = Geometry::Size[1,2]
     size3 = Geometry::Size[3,4]
     assert_equal(size1, size2)
-    _(size2).wont_equal size3
+    refute_equal size2, size3
   end
 
   it "compare equal to an array with equal elements" do
@@ -83,7 +83,7 @@ describe Geometry::Size do
 
   it "not compare equal to an array with unequal elements" do
     size1 = Size[1,2]
-    _(size1).wont_equal [3,2]
+    refute_equal size1, [3,2]
   end
 
   it "implement inspect" do

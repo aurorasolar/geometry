@@ -12,15 +12,15 @@ describe Geometry::Circle do
     end
 
     it "must have a center point accessor" do
-      _(circle.center).must_equal Point[1,2]
+      assert_equal circle.center, Point[1,2]
     end
 
     it "must have a radius accessor" do
-      _(circle.radius).must_equal 3
+      assert_equal circle.radius, 3
     end
 
     it "must compare equal" do
-      _(circle).must_equal Circle.new([1,2], 3)
+      assert_equal circle, Circle.new([1,2], 3)
     end
   end
 
@@ -32,15 +32,15 @@ describe Geometry::Circle do
     end
 
     it "must have a center point accessor" do
-      _(circle.center).must_equal Point[1,2]
+      assert_equal circle.center, Point[1,2]
     end
 
     it "must have a radius accessor" do
-      _(circle.radius).must_equal 3
+      assert_equal circle.radius, 3
     end
 
     it "must compare equal" do
-      _(circle == Circle.new(:center => [1,2], :radius => 3)).must_equal true
+      assert_equal circle == Circle.new(:center => [1,2], :radius => 3), true
     end
   end
 
@@ -49,23 +49,23 @@ describe Geometry::Circle do
 
     it "must be a CenterDiameterCircle" do
       _(circle).must_be_instance_of(Geometry::CenterDiameterCircle)
-      _(circle).must_be_kind_of(Circle)
+      assert_kind_of Circle, circle
     end
 
     it "must have a center" do
-      _(circle.center).must_equal Point[1,2]
+      assert_equal circle.center, Point[1,2]
     end
 
     it "must have a diameter" do
-      _(circle.diameter).must_equal 4
+      assert_equal circle.diameter, 4
     end
 
     it "must calculate the correct radius" do
-      _(circle.radius).must_equal 2
+      assert_equal circle.radius, 2
     end
 
     it "must compare equal" do
-      _(circle).must_equal Circle.new([1,2], :diameter => 4)
+      assert_equal circle, Circle.new([1,2], :diameter => 4)
     end
   end
 
@@ -74,19 +74,19 @@ describe Geometry::Circle do
 
     it "must be a CenterDiameterCircle" do
       _(circle).must_be_instance_of(Geometry::CenterDiameterCircle)
-      _(circle).must_be_kind_of(Circle)
+      assert_kind_of Circle, circle
     end
 
     it "must have a nil center" do
-      _(circle.center).must_be_kind_of Geometry::PointZero
+      assert_kind_of Geometry::PointZero, circle.center
     end
 
     it "must have a diameter" do
-      _(circle.diameter).must_equal 4
+      assert_equal circle.diameter, 4
     end
 
     it "must calculate the correct radius" do
-      _(circle.radius).must_equal 2
+      assert_equal circle.radius, 2
     end
   end
 
@@ -94,19 +94,19 @@ describe Geometry::Circle do
     subject { Circle.new center:[1,2], :diameter => 4 }
 
     it "must have a bounds property that returns a Rectangle" do
-      _(subject.bounds).must_equal Rectangle.new([-1,0], [3,4])
+      assert_equal subject.bounds, Rectangle.new([-1,0], [3,4])
     end
 
     it "must have a minmax property that returns the corners of the bounding rectangle" do
-      _(subject.minmax).must_equal [Point[-1,0], Point[3,4]]
+      assert_equal subject.minmax, [Point[-1,0], Point[3,4]]
     end
 
     it "must have a max property that returns the upper right corner of the bounding rectangle" do
-      _(subject.max).must_equal Point[3,4]
+      assert_equal subject.max, Point[3,4]
     end
 
     it "must have a min property that returns the lower left corner of the bounding rectangle" do
-      _(subject.min).must_equal Point[-1,0]
+      assert_equal subject.min, Point[-1,0]
     end
   end
 end

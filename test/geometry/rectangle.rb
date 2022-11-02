@@ -10,105 +10,105 @@ describe Geometry::Rectangle do
 
   describe "when initializing" do
     it "must accept two corners as Arrays" do
-      rectangle = Rectangle.new [1,2], [2,3]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.height).must_equal 1
-      _(rectangle.width).must_equal 1
-      _(rectangle.origin).must_equal Point[1,2]
+      rectangle = Rectangle.new([1,2], [2,3])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.height, 1
+      assert_equal rectangle.width, 1
+      assert_equal rectangle.origin, Point[1,2]
     end
 
     it "must accept two named corners as Arrays" do
-      rectangle = Rectangle.new from:[1,2], to:[2,3]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.height).must_equal 1
-      _(rectangle.width).must_equal 1
-      _(rectangle.origin).must_equal Point[1,2]
+      rectangle = Rectangle.new(from:[1,2], to:[2,3])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.height, 1
+      assert_equal rectangle.width, 1
+      assert_equal rectangle.origin, Point[1,2]
     end
 
     it "must accept named center point and size arguments" do
-      rectangle = Rectangle.new center:[1,2], size:[3,4]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.height).must_equal 4
-      _(rectangle.width).must_equal 3
-      _(rectangle.center).must_equal Point[1,2]
+      rectangle = Rectangle.new(center:[1,2], size:[3,4])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.height, 4
+      assert_equal rectangle.width, 3
+      assert_equal rectangle.center, Point[1,2]
     end
 
     it "must reject a named center argument with no size argument" do
-      _(-> { Rectangle.new center:[1,2] }).must_raise ArgumentError
+      assert_raises(ArgumentError) { Rectangle.new(center:[1,2]) }
     end
 
     it "must accept named origin point and size arguments" do
-      rectangle = Rectangle.new origin:[1,2], size:[3,4]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.height).must_equal 4
-      _(rectangle.width).must_equal 3
-      _(rectangle.origin).must_equal Point[1,2]
+      rectangle = Rectangle.new(origin:[1,2], size:[3,4])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.height, 4
+      assert_equal rectangle.width, 3
+      assert_equal rectangle.origin, Point[1,2]
     end
 
     it "must reject a named origin argument with no size argument" do
-      _(-> { Rectangle.new origin:[1,2] }).must_raise ArgumentError
+      assert_raises(ArgumentError) { Rectangle.new(origin:[1,2]) }
     end
 
     it "must accept a sole named size argument that is an Array" do
-      rectangle = Rectangle.new size:[1,2]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.origin).must_equal Point[0,0]
-      _(rectangle.height).must_equal 2
-      _(rectangle.width).must_equal 1
+      rectangle = Rectangle.new(size:[1,2])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.origin, Point[0,0]
+      assert_equal rectangle.height, 2
+      assert_equal rectangle.width, 1
     end
 
     it "must accept a sole named size argument that is a Size" do
-      rectangle = Rectangle.new size:Size[1,2]
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.origin).must_equal Point[0,0]
-      _(rectangle.height).must_equal 2
-      _(rectangle.width).must_equal 1
+      rectangle = Rectangle.new(size:Size[1,2])
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.origin, Point[0,0]
+      assert_equal rectangle.height, 2
+      assert_equal rectangle.width, 1
     end
 
     it "must accept named width and height arguments" do
-      rectangle = Rectangle.new width:1, height:3
-      _(rectangle).must_be_kind_of Geometry::Rectangle
-      _(rectangle.height).must_equal 3
-      _(rectangle.width).must_equal 1
+      rectangle = Rectangle.new(width:1, height:3)
+      assert_kind_of Geometry::Rectangle, rectangle
+      assert_equal rectangle.height, 3
+      assert_equal rectangle.width, 1
     end
 
     it "must reject width or height by themselves" do
-      _(-> { Rectangle.new height:1 }).must_raise ArgumentError
-      _(-> { Rectangle.new width:1 }).must_raise ArgumentError
+      assert_raises(ArgumentError) { Rectangle.new(height:1) }
+      assert_raises(ArgumentError) { Rectangle.new(width:1) }
     end
   end
 
   describe "comparison" do
     it "must compare equal" do
       rectangle = Rectangle [1,2], [3,4]
-      _(rectangle).must_equal Rectangle([1,2], [3, 4])
+      assert_equal rectangle, Rectangle([1,2], [3, 4])
     end
   end
 
   describe "inset" do
-    subject { Rectangle.new [0,0], [10,10] }
+    subject { Rectangle.new([0,0], [10,10]) }
 
     it "must inset equally" do
-      _(subject.inset(1)).must_equal Rectangle.new [1,1], [9,9]
+      assert_equal subject.inset(1), Rectangle.new([1,1], [9,9])
     end
 
     it "must inset vertically and horizontally" do
-      _(subject.inset(1,2)).must_equal Rectangle.new [1,2], [9,8]
-      _(subject.inset(x:1, y:2)).must_equal Rectangle.new [1,2], [9,8]
+      assert_equal subject.inset(1,2), Rectangle.new([1,2], [9,8])
+      assert_equal subject.inset(x:1, y:2), Rectangle.new([1,2], [9,8])
     end
 
     it "must inset from individual sides" do
-      _(subject.inset(1,2,3,4)).must_equal Rectangle.new [2,3], [6,9]
-      _(subject.inset(top:1, left:2, bottom:3, right:4)).must_equal Rectangle.new [2,3], [6,9]
+      assert_equal subject.inset(1,2,3,4), Rectangle.new([2,3], [6,9])
+      assert_equal subject.inset(top:1, left:2, bottom:3, right:4), Rectangle.new([2,3], [6,9])
     end
   end
 
   describe "properties" do
-    subject { Rectangle.new [1,2], [3,4] }
+    subject { Rectangle.new([1,2], [3,4]) }
     let(:rectangle) { Rectangle [1,2], [3,4] }
 
     it "have a center point property" do
-      _(rectangle.center).must_equal Point[2,3]
+      assert_equal rectangle.center, Point[2,3]
     end
 
     it "have a width property" do
@@ -136,19 +136,19 @@ describe Geometry::Rectangle do
     end
 
     it "must have a bounds property that returns a Rectangle" do
-      _(subject.bounds).must_equal Rectangle.new([1,2], [3,4])
+      assert_equal subject.bounds, Rectangle.new([1,2], [3,4])
     end
 
     it "must have a minmax property that returns the corners of the bounding rectangle" do
-      _(subject.minmax).must_equal [Point[1,2], Point[3,4]]
+      assert_equal subject.minmax, [Point[1,2], Point[3,4]]
     end
 
     it "must have a max property that returns the upper right corner of the bounding rectangle" do
-      _(subject.max).must_equal Point[3,4]
+      assert_equal subject.max, Point[3,4]
     end
 
     it "must have a min property that returns the lower left corner of the bounding rectangle" do
-      _(subject.min).must_equal Point[1,2]
+      assert_equal subject.min, Point[1,2]
     end
   end
 end
