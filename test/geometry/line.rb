@@ -2,131 +2,131 @@ require 'minitest/autorun'
 require 'geometry/line'
 
 describe Geometry::Line do
-    Line = Geometry::Line
-    Point = Geometry::Point
+  Line = Geometry::Line
+  Point = Geometry::Point
 
-    describe "when initializing" do
-	it "must accept two named points" do
-	    line = Line.new(from:Point[0,0], to:Point[10,10])
-	    line.must_be_kind_of(Line)
-	    line.must_be_instance_of(Geometry::TwoPointLine)
-	    line.first.must_equal Point[0,0]
-	    line.last.must_equal Point[10,10]
-	end
-
-	it "must accept named start and end points" do
-	    line = Line.new(start:Point[0,0], end:Point[10,10])
-	    line.must_be_kind_of(Line)
-	    line.must_be_instance_of(Geometry::TwoPointLine)
-	    line.first.must_equal Point[0,0]
-	    line.last.must_equal Point[10,10]
-	end
-
-	it "must raise an exception when no arguments are given" do
-	    -> { Line.new }.must_raise ArgumentError
-	end
+  describe "when initializing" do
+    it "must accept two named points" do
+      line = Line.new(from:Point[0,0], to:Point[10,10])
+      assert_kind_of Line, line
+      _(line).must_be_instance_of(Geometry::TwoPointLine)
+      assert_equal line.first, Point[0,0]
+      assert_equal line.last, Point[10,10]
     end
 
-    it "create a Line object from 2 Points" do
-	line = Geometry::Line[Geometry::Point[0,0], Geometry::Point[10,10]]
-	assert_kind_of(Geometry::Line, line)
-	assert_kind_of(Geometry::TwoPointLine, line)
-    end
-    it "create a Line object from two arrays" do
-	line = Geometry::Line[[0,0], [10,10]]
-	assert(line.is_a?(Geometry::Line))
-	assert_kind_of(Geometry::TwoPointLine, line)
-	assert_kind_of(Geometry::Point, line.first)
-	assert_kind_of(Geometry::Point, line.last)
-    end
-    it "create a Line object from two Vectors" do
-	line = Geometry::Line[Vector[0,0], Vector[10,10]]
-	assert(line.is_a?(Geometry::Line))
-	assert_kind_of(Geometry::TwoPointLine, line)
+    it "must accept named start and end points" do
+      line = Line.new(start:Point[0,0], end:Point[10,10])
+      assert_kind_of Line, line
+      _(line).must_be_instance_of(Geometry::TwoPointLine)
+      assert_equal line.first, Point[0,0]
+      assert_equal line.last, Point[10,10]
     end
 
-    it "create a Line from a slope and y-intercept" do
-	line = Geometry::Line[0.75, 5]
-	assert(line.is_a?(Geometry::Line))
-	assert_kind_of(Geometry::SlopeInterceptLine, line)
-	assert_equal(5, line.intercept)
-	assert_equal(0.75, line.slope)
+    it "must raise an exception when no arguments are given" do
+      assert_raises(ArgumentError) { Line.new }
     end
+  end
 
-    it "create a Line from a Rational slope and y-intercept" do
-	line = Geometry::Line[Rational(3,4), 5]
-	assert_kind_of(Geometry::SlopeInterceptLine, line)
-	assert(line.is_a?(Geometry::Line))
-	assert_equal(Rational(3,4), line.slope)
-    end
+  it "create a Line object from 2 Points" do
+    line = Geometry::Line[Geometry::Point[0,0], Geometry::Point[10,10]]
+    assert_kind_of(Geometry::Line, line)
+    assert_kind_of(Geometry::TwoPointLine, line)
+  end
+  it "create a Line object from two arrays" do
+    line = Geometry::Line[[0,0], [10,10]]
+    assert(line.is_a?(Geometry::Line))
+    assert_kind_of(Geometry::TwoPointLine, line)
+    assert_kind_of(Geometry::Point, line.first)
+    assert_kind_of(Geometry::Point, line.last)
+  end
+  it "create a Line object from two Vectors" do
+    line = Geometry::Line[Vector[0,0], Vector[10,10]]
+    assert(line.is_a?(Geometry::Line))
+    assert_kind_of(Geometry::TwoPointLine, line)
+  end
 
-    it "have a special constructor for horizontal lines" do
-	line = Geometry::Line.horizontal
-	assert(line.horizontal?)
-    end
-    it "have a special constructor for vertical lines" do
-	line = Geometry::Line.vertical
-	assert(line.vertical?)
-    end
+  it "create a Line from a slope and y-intercept" do
+    line = Geometry::Line[0.75, 5]
+    assert(line.is_a?(Geometry::Line))
+    assert_kind_of(Geometry::SlopeInterceptLine, line)
+    assert_equal(5, line.intercept)
+    assert_equal(0.75, line.slope)
+  end
 
-    it "have accessor for y-intercept" do
-	line = Geometry::Line[0.75, 5]
-	assert_equal(5, line.intercept)
-	assert_equal(5, line.intercept(:y))
-    end
-    it "have accessor for x-intercept" do
-	line = Geometry::Line.vertical(7)
-	assert_equal(7, line.intercept(:x))
-    end
+  it "create a Line from a Rational slope and y-intercept" do
+    line = Geometry::Line[Rational(3,4), 5]
+    assert_kind_of(Geometry::SlopeInterceptLine, line)
+    assert(line.is_a?(Geometry::Line))
+    assert_equal(Rational(3,4), line.slope)
+  end
 
-    it "return the correct x-intercept for vertical lines" do
-	line = Geometry::Line.vertical(7)
-	assert_equal(7, line.intercept(:x))
-    end
-    it "return the correct y-intercept for horizontal lines" do
-	line = Geometry::Line.horizontal(4)
-	assert_equal(4, line.intercept(:y))
-    end
+  it "have a special constructor for horizontal lines" do
+    line = Geometry::Line.horizontal
+    assert(line.horizontal?)
+  end
+  it "have a special constructor for vertical lines" do
+    line = Geometry::Line.vertical
+    assert(line.vertical?)
+  end
 
-    it "return nil x-intercept for horizontal lines" do
-	line = Geometry::Line.horizontal
-	assert_nil(line.intercept(:x))
-    end
-    it "return nil y-intercept for vertical lines" do
-	line = Geometry::Line.vertical
-	assert_nil(line.intercept(:y))
-    end
+  it "have accessor for y-intercept" do
+    line = Geometry::Line[0.75, 5]
+    assert_equal(5, line.intercept)
+    assert_equal(5, line.intercept(:y))
+  end
+  it "have accessor for x-intercept" do
+    line = Geometry::Line.vertical(7)
+    assert_equal(7, line.intercept(:x))
+  end
 
-    it "implement inspect" do
-	line = Geometry::Line[[0,0], [10,10]]
-	assert_equal('Line(Point[0, 0], Point[10, 10])', line.inspect)
-    end
-    it "implement to_s" do
-	line = Geometry::Line[[0,0], [10,10]]
-	assert_equal('Line(Point[0, 0], Point[10, 10])', line.to_s)
-    end
+  it "return the correct x-intercept for vertical lines" do
+    line = Geometry::Line.vertical(7)
+    assert_equal(7, line.intercept(:x))
+  end
+  it "return the correct y-intercept for horizontal lines" do
+    line = Geometry::Line.horizontal(4)
+    assert_equal(4, line.intercept(:y))
+  end
+
+  it "return nil x-intercept for horizontal lines" do
+    line = Geometry::Line.horizontal
+    assert_nil(line.intercept(:x))
+  end
+  it "return nil y-intercept for vertical lines" do
+    line = Geometry::Line.vertical
+    assert_nil(line.intercept(:y))
+  end
+
+  it "implement inspect" do
+    line = Geometry::Line[[0,0], [10,10]]
+    assert_equal('Line(Point[0, 0], Point[10, 10])', line.inspect)
+  end
+  it "implement to_s" do
+    line = Geometry::Line[[0,0], [10,10]]
+    assert_equal('Line(Point[0, 0], Point[10, 10])', line.to_s)
+  end
 end
 
 describe Geometry::PointSlopeLine do
-    subject { Geometry::PointSlopeLine.new [1,2], 3 }
+  subject { Geometry::PointSlopeLine.new [1,2], 3 }
 
-    it "must have a slope attribute" do
-	subject.slope.must_equal 3
-    end
+  it "must have a slope attribute" do
+    assert_equal subject.slope, 3
+  end
 end
 
 describe Geometry::SlopeInterceptLine do
-    subject { Geometry::SlopeInterceptLine.new 3, 2 }
+  subject { Geometry::SlopeInterceptLine.new 3, 2 }
 
-    it "must have a slope attribute" do
-	subject.slope.must_equal 3
-    end
+  it "must have a slope attribute" do
+    assert_equal subject.slope, 3
+  end
 end
 
 describe Geometry::TwoPointLine do
-    subject { Geometry::TwoPointLine.new [1,2], [3,4] }
+  subject { Geometry::TwoPointLine.new [1,2], [3,4] }
 
-    it "must have a slope attribute" do
-	subject.slope.must_equal 1
-    end
+  it "must have a slope attribute" do
+    assert_equal subject.slope, 1
+  end
 end
