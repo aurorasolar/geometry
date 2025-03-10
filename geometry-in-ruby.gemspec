@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/aurorasolar/geometry"
   s.summary     = %q{Geometric primitives and algoritms}
   s.description = %q{Geometric primitives and algorithms for Ruby}
-  s.required_ruby_version = ">= 2.7.5"
+  s.required_ruby_version = ">= 2.0"
 
   s.rubyforge_project = "aurora_geometry"
 
